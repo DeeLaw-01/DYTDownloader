@@ -16,6 +16,11 @@ import {
 } from './middleware/securityMiddleware.js'
 import { config, validateEnv, isProduction } from './config/environment.js'
 
+// Set environment variables for third-party libraries
+if (isProduction) {
+  process.env.YTDL_NO_UPDATE = 'true' // Disable YTDL update checks in production
+}
+
 // Validate environment variables
 try {
   validateEnv()
@@ -25,6 +30,15 @@ try {
 }
 
 const app = express()
+
+// Trust proxy setting for production deployment
+if (isProduction) {
+  app.set('trust proxy', 1) // Trust first proxy (Render, Heroku, etc.)
+  console.log('🔧 Trust proxy enabled for production')
+} else {
+  app.set('trust proxy', false) // Local development
+  console.log('🔧 Trust proxy disabled for development')
+}
 
 // Security middleware (order matters!)
 app.use(securityHeaders)

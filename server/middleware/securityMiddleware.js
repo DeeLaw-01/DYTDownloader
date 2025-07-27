@@ -12,7 +12,8 @@ export const generalLimiter = rateLimit({
     retryAfter: '15 minutes'
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  trustProxy: process.env.NODE_ENV === 'production'
 })
 
 // Stricter rate limiting for download endpoints
@@ -24,7 +25,8 @@ export const downloadLimiter = rateLimit({
     retryAfter: '15 minutes'
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  trustProxy: process.env.NODE_ENV === 'production'
 })
 
 // Speed limiting for download endpoints (slows down requests)

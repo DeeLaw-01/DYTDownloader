@@ -46,7 +46,14 @@ export const downloadLimitMiddleware = async (req, res, next) => {
     }
 
     // For anonymous users, check download limit
-    const clientIP = req.ip || req.connection.remoteAddress
+    // Get client IP with proper proxy handling
+    const clientIP =
+      req.ip ||
+      req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+      req.headers['x-real-ip'] ||
+      req.connection.remoteAddress ||
+      req.socket.remoteAddress ||
+      'unknown'
     const now = Date.now()
     const oneHourAgo = now - 60 * 60 * 1000
 
@@ -105,6 +112,7 @@ export const anonymousRateLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: process.env.NODE_ENV === 'production',
   skip: req => {
     // Skip rate limiting for authenticated users
     return (
@@ -125,6 +133,7 @@ export const authenticatedRateLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: process.env.NODE_ENV === 'production',
   skip: req => {
     // Only apply to authenticated users
     return !(

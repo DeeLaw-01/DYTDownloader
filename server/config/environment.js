@@ -39,6 +39,9 @@ export const config = {
   // Logging
   LOG_LEVEL: process.env.LOG_LEVEL || 'info',
 
+  // YouTube DL
+  YTDL_NO_UPDATE: process.env.YTDL_NO_UPDATE || 'true', // Disable update checks in production
+
   // Vercel specific
   VERCEL_ENV: process.env.VERCEL_ENV || 'development'
 }
