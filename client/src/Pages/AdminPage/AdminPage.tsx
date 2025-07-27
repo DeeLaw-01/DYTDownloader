@@ -7,12 +7,9 @@ import {
   Shield,
   Activity,
   Search,
-  Edit,
   Trash2,
-  Eye,
   CheckCircle,
   XCircle,
-  Calendar,
   BarChart3
 } from 'lucide-react'
 import api from '@/api/api'
@@ -634,7 +631,9 @@ export default function AdminPage () {
                   </label>
                   <select
                     value={logFilters.level}
-                    onChange={e => setLogFilters({...logFilters, level: e.target.value})}
+                    onChange={e =>
+                      setLogFilters({ ...logFilters, level: e.target.value })
+                    }
                     className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                   >
                     <option value=''>All Levels</option>
@@ -650,7 +649,9 @@ export default function AdminPage () {
                   </label>
                   <select
                     value={logFilters.action}
-                    onChange={e => setLogFilters({...logFilters, action: e.target.value})}
+                    onChange={e =>
+                      setLogFilters({ ...logFilters, action: e.target.value })
+                    }
                     className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                   >
                     <option value=''>All Actions</option>
@@ -666,7 +667,12 @@ export default function AdminPage () {
                   <input
                     type='datetime-local'
                     value={logFilters.startDate}
-                    onChange={e => setLogFilters({...logFilters, startDate: e.target.value})}
+                    onChange={e =>
+                      setLogFilters({
+                        ...logFilters,
+                        startDate: e.target.value
+                      })
+                    }
                     className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                   />
                 </div>
@@ -677,7 +683,9 @@ export default function AdminPage () {
                   <input
                     type='datetime-local'
                     value={logFilters.endDate}
-                    onChange={e => setLogFilters({...logFilters, endDate: e.target.value})}
+                    onChange={e =>
+                      setLogFilters({ ...logFilters, endDate: e.target.value })
+                    }
                     className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                   />
                 </div>
@@ -695,30 +703,53 @@ export default function AdminPage () {
               {logsLoading ? (
                 <div className='text-center py-8'>
                   <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto'></div>
-                  <p className='mt-2 text-gray-600 dark:text-gray-400'>Loading logs...</p>
+                  <p className='mt-2 text-gray-600 dark:text-gray-400'>
+                    Loading logs...
+                  </p>
                 </div>
               ) : (
                 <div className='overflow-x-auto'>
                   <table className='w-full text-sm'>
                     <thead>
                       <tr className='border-b border-gray-200 dark:border-gray-700'>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>Time</th>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>Level</th>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>Message</th>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>User</th>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>Method</th>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>Status</th>
-                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>IP</th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          Time
+                        </th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          Level
+                        </th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          Message
+                        </th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          User
+                        </th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          Method
+                        </th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          Status
+                        </th>
+                        <th className='text-left p-3 text-gray-600 dark:text-gray-400'>
+                          IP
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {logs.map(log => (
-                        <tr key={log._id} className='border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50'>
+                        <tr
+                          key={log._id}
+                          className='border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                        >
                           <td className='p-3 text-gray-600 dark:text-gray-400 font-mono text-xs'>
                             {formatDate(log.timestamp)}
                           </td>
                           <td className='p-3'>
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getLogLevelColor(log.level)}`}>
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-medium ${getLogLevelColor(
+                                log.level
+                              )}`}
+                            >
                               {log.level.toUpperCase()}
                             </span>
                           </td>
@@ -727,7 +758,10 @@ export default function AdminPage () {
                               {log.message}
                             </div>
                             {log.error && (
-                              <div className='text-red-600 text-xs mt-1 truncate' title={log.error.message}>
+                              <div
+                                className='text-red-600 text-xs mt-1 truncate'
+                                title={log.error.message}
+                              >
                                 Error: {log.error.message}
                               </div>
                             )}
@@ -735,8 +769,12 @@ export default function AdminPage () {
                           <td className='p-3 text-gray-600 dark:text-gray-400'>
                             {log.userId ? (
                               <div>
-                                <div className='font-medium'>{log.userId.name}</div>
-                                <div className='text-xs'>{log.userId.email}</div>
+                                <div className='font-medium'>
+                                  {log.userId.name}
+                                </div>
+                                <div className='text-xs'>
+                                  {log.userId.email}
+                                </div>
                               </div>
                             ) : (
                               <span className='text-gray-400'>Anonymous</span>
@@ -751,7 +789,11 @@ export default function AdminPage () {
                           </td>
                           <td className='p-3'>
                             {log.statusCode && (
-                              <span className={`font-mono text-xs ${getStatusCodeColor(log.statusCode)}`}>
+                              <span
+                                className={`font-mono text-xs ${getStatusCodeColor(
+                                  log.statusCode
+                                )}`}
+                              >
                                 {log.statusCode}
                               </span>
                             )}
@@ -763,7 +805,10 @@ export default function AdminPage () {
                       ))}
                       {logs.length === 0 && (
                         <tr>
-                          <td colSpan={7} className='p-8 text-center text-gray-500 dark:text-gray-400'>
+                          <td
+                            colSpan={7}
+                            className='p-8 text-center text-gray-500 dark:text-gray-400'
+                          >
                             No logs found
                           </td>
                         </tr>
@@ -777,19 +822,32 @@ export default function AdminPage () {
               {logPagination.totalPages > 1 && (
                 <div className='flex items-center justify-between mt-6'>
                   <p className='text-sm text-gray-600 dark:text-gray-400'>
-                    Page {logPagination.currentPage} of {logPagination.totalPages}
+                    Page {logPagination.currentPage} of{' '}
+                    {logPagination.totalPages}
                   </p>
                   <div className='flex gap-2'>
                     <button
-                      onClick={() => setLogPagination(prev => ({ ...prev, currentPage: prev.currentPage - 1 }))}
+                      onClick={() =>
+                        setLogPagination(prev => ({
+                          ...prev,
+                          currentPage: prev.currentPage - 1
+                        }))
+                      }
                       disabled={logPagination.currentPage === 1}
                       className='px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed'
                     >
                       Previous
                     </button>
                     <button
-                      onClick={() => setLogPagination(prev => ({ ...prev, currentPage: prev.currentPage + 1 }))}
-                      disabled={logPagination.currentPage === logPagination.totalPages}
+                      onClick={() =>
+                        setLogPagination(prev => ({
+                          ...prev,
+                          currentPage: prev.currentPage + 1
+                        }))
+                      }
+                      disabled={
+                        logPagination.currentPage === logPagination.totalPages
+                      }
                       className='px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded disabled:opacity-50 disabled:cursor-not-allowed'
                     >
                       Next

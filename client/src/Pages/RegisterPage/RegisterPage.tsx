@@ -34,6 +34,7 @@ export default function RegisterPage () {
     try {
       setIsLoading(true)
       const response = await api.post('/api/auth/register', formData)
+      response
       toast.success('Registration Successful', {
         description: 'Please check your email for OTP verification'
       })

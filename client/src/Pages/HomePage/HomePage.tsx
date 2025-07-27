@@ -3,16 +3,7 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
-import {
-  Music,
-  Video,
-  Clock,
-  Eye,
-  User,
-  Loader2,
-  Search,
-  Info
-} from 'lucide-react'
+import { Music, Video, Clock, Eye, User, Loader2, Search } from 'lucide-react'
 import api from '@/api/api'
 import useUserStore from '@/store/userStore'
 
@@ -414,7 +405,12 @@ export default function HomePage () {
       }
     } finally {
       setDownloadingMP4(null)
-      setDownloadProgress({ type: null, progress: 0, phase: 'fetching', estimatedTime: undefined })
+      setDownloadProgress({
+        type: null,
+        progress: 0,
+        phase: 'fetching',
+        estimatedTime: undefined
+      })
     }
   }
 
