@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Utility classes */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Base colors - Light Mode */
+  --background: #f8f9fa;
+  --foreground: #121212;
+
+  /* Card colors */
+  --card: #ffffff;
+  --card-foreground: #121212;
+
+  /* Popover colors */
+  --popover: #ffffff;
+  --popover-foreground: #121212;
+
+  /* Primary colors - Gaming Theme */
+  --primary: #7e22ce; /* Purple */
+  --primary-foreground: #ffffff;
+
+  /* Secondary colors */
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+
+  /* Muted colors */
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+
+  /* Accent colors - Gaming Theme */
+  --accent: #a855f7; /* Lighter Purple */
+  --accent-foreground: #ffffff;
+
+  /* Destructive colors */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  /* Border, input, and ring colors */
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #a855f7;
+
+  /* Gaming theme colors */
+  --gaming-purple: #7e22ce;
+  --gaming-purple-light: #a855f7;
+  --gaming-blue: #2563eb;
+  --gaming-cyan: #06b6d4;
+  --gaming-pink: #ec4899;
+  --gaming-green: #10b981;
+
+  /* Dashboard colors */
+  --dashboard-bg: #f8f9fa;
+  --dashboard-sidebar: #ffffff;
+  --dashboard-card: #ffffff;
+  --dashboard-card-hover: #f4f4f5;
+  --dashboard-border: #e4e4e7;
+  --dashboard-text: #18181b;
+  --dashboard-text-muted: #71717a;
+  --dashboard-accent: #7e22ce; /* Purple */
+
+  /* Sidebar colors */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #7e22ce; /* Purple */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #a855f7;
+}
+
+.dark {
+  /* Base colors - Dark Mode */
+  --background: #0c000e;
+  --foreground: #fafafa;
+
+  /* Card colors */
+  --card: #18181b;
+  --card-foreground: #fafafa;
+
+  /* Popover colors */
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+
+  /* Primary colors - Gaming Theme */
+  --primary: #a855f7; /* Brighter Purple for dark mode */
+  --primary-foreground: #ffffff;
+
+  /* Secondary colors */
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+
+  /* Muted colors */
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+
+  /* Accent colors - Gaming Theme */
+  --accent: #7e22ce; /* Darker Purple */
+  --accent-foreground: #ffffff;
+
+  /* Destructive colors */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  /* Border, input, and ring colors */
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #a855f7;
+
+  /* Chart colors */
+  --chart-1: #a855f7; /* Purple */
+  --chart-2: #3b82f6; /* Blue */
+  --chart-3: #f472b6; /* Pink */
+  --chart-4: #22d3ee; /* Cyan */
+  --chart-5: #34d399; /* Green */
+
+  /* Gaming theme colors - Dark Mode */
+  --gaming-purple: #a855f7;
+  --gaming-purple-light: #c084fc;
+  --gaming-blue: #3b82f6;
+  --gaming-cyan: #22d3ee;
+  --gaming-pink: #f472b6;
+  --gaming-green: #34d399;
+
+  /* Dashboard colors */
+  --dashboard-bg: #09090b;
+  --dashboard-sidebar: #18181b;
+  --dashboard-card: #18181b;
+  --dashboard-card-hover: #27272a;
+  --dashboard-border: #27272a;
+  --dashboard-text: #fafafa;
+  --dashboard-text-muted: #a1a1aa;
+  --dashboard-accent: #a855f7; /* Brighter Purple */
+
+  /* Sidebar colors */
+  --sidebar: #18181b;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #a855f7; /* Brighter Purple */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #27272a;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #a855f7;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
