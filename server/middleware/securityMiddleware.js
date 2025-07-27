@@ -138,8 +138,8 @@ export const corsOptions = {
     const allowedOrigins = [
       'http://localhost:5173',
       'http://localhost:3000',
-      'https://yourdomain.com', // Replace with your actual domain
-      'https://www.yourdomain.com'
+      'https://dytdownloader.vercel.app',
+      'https://www.dytdownloader.vercel.app'
     ]
 
     // Allow requests with no origin (like mobile apps or curl requests)
