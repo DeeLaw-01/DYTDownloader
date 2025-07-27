@@ -81,6 +81,7 @@ export const getVideoInfo = async (req, res) => {
       data: videoInfo
     })
   } catch (error) {
+    console.log('Get video info error: ', error)
     // Log error
     await logService.error('Get video info error', error, req, {
       url: req.body.url
