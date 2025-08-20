@@ -33,8 +33,13 @@ const app = express()
 
 // Trust proxy setting for production deployment
 if (isProduction) {
-  app.set('trust proxy', 1) // Trust first proxy (Render, Heroku, etc.)
-  console.log('🔧 Trust proxy enabled for production')
+  if (config.DEPLOYMENT_PLATFORM === 'vercel') {
+    app.set('trust proxy', 1) // Trust first proxy (Vercel)
+    console.log('🔧 Trust proxy enabled for Vercel')
+  } else {
+    app.set('trust proxy', false) // Direct server (Digital Ocean, etc.)
+    console.log('🔧 Trust proxy disabled for direct server')
+  }
 } else {
   app.set('trust proxy', false) // Local development
   console.log('🔧 Trust proxy disabled for development')

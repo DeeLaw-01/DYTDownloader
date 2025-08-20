@@ -41,8 +41,11 @@ export const config = {
 
   // YouTube DL
   YTDL_NO_UPDATE: process.env.YTDL_NO_UPDATE || 'true', // Disable update checks in production
+  YOUTUBE_COOKIES: process.env.YOUTUBE_COOKIES, // YouTube cookies for authentication
+  YTDL_USER_AGENT: process.env.YTDL_USER_AGENT || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
 
-  // Vercel specific
+  // Deployment specific
+  DEPLOYMENT_PLATFORM: process.env.DEPLOYMENT_PLATFORM || 'digitalocean', // 'vercel', 'digitalocean', 'heroku', etc.
   VERCEL_ENV: process.env.VERCEL_ENV || 'development'
 }
 

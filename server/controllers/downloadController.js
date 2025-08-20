@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import logService from '../services/logService.js'
+import { config } from '../config/environment.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -11,6 +12,36 @@ const __dirname = path.dirname(__filename)
 const downloadsDir = path.join(__dirname, '../downloads')
 if (!fs.existsSync(downloadsDir)) {
   fs.mkdirSync(downloadsDir, { recursive: true })
+}
+
+// Helper function to get ytdl options with authentication
+const getYtdlOptions = (additionalOptions = {}) => {
+  const baseOptions = {
+    requestOptions: {
+      headers: {
+        'User-Agent': config.YTDL_USER_AGENT,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-us,en;q=0.5',
+        'Accept-Encoding': 'gzip,deflate',
+        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+        'Keep-Alive': '115',
+        'Connection': 'keep-alive',
+      }
+    }
+  }
+
+  // Add cookies if available
+  if (config.YOUTUBE_COOKIES) {
+    try {
+      // Parse cookies from environment variable (expected format: "name1=value1; name2=value2")
+      const cookies = config.YOUTUBE_COOKIES.split(';').map(cookie => cookie.trim())
+      baseOptions.requestOptions.headers['Cookie'] = cookies.join('; ')
+    } catch (error) {
+      console.warn('Failed to parse YouTube cookies:', error.message)
+    }
+  }
+
+  return { ...baseOptions, ...additionalOptions }
 }
 
 // Get video information
@@ -35,7 +66,7 @@ export const getVideoInfo = async (req, res) => {
     }
 
     // Check video length (prevent abuse with very long videos)
-    const info = await ytdl.getInfo(url)
+    const info = await ytdl.getInfo(url, getYtdlOptions())
     const duration = parseInt(info.videoDetails.lengthSeconds)
 
     if (duration > 7200) {
@@ -135,7 +166,7 @@ export const downloadMP4 = async (req, res) => {
     }
 
     // Get video info and validate
-    const info = await ytdl.getInfo(url)
+    const info = await ytdl.getInfo(url, getYtdlOptions())
     const duration = parseInt(info.videoDetails.lengthSeconds)
 
     if (duration > 7200) {
@@ -200,10 +231,10 @@ export const downloadMP4 = async (req, res) => {
     }
 
     // Stream the video directly to response with progress tracking
-    const stream = ytdl(url, {
+    const stream = ytdl(url, getYtdlOptions({
       quality: quality,
       filter: 'audioandvideo'
-    })
+    }))
 
     let downloadedBytes = 0
 
@@ -291,7 +322,7 @@ export const downloadMP3 = async (req, res) => {
     }
 
     // Get video info and validate
-    const info = await ytdl.getInfo(url)
+    const info = await ytdl.getInfo(url, getYtdlOptions())
     const duration = parseInt(info.videoDetails.lengthSeconds)
 
     if (duration > 7200) {
@@ -356,10 +387,10 @@ export const downloadMP3 = async (req, res) => {
     }
 
     // Stream the audio directly to response with progress tracking
-    const stream = ytdl(url, {
+    const stream = ytdl(url, getYtdlOptions({
       quality: quality,
       filter: 'audioonly'
-    })
+    }))
 
     let downloadedBytes = 0
 
